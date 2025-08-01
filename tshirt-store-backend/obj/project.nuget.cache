@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "pBQBB3/WE+4=",
+  "dgSpecHash": "85MC9cdkqcQ=",
   "success": true,
-  "projectFilePath": "C:\\Users\\SMPC\\Documents\\My Web Sites\\React\\tshirt-store-backend\\tshirt-store-backend.csproj",
+  "projectFilePath": "C:\\Users\\SMPC\\Documents\\My Web Sites\\web-store-app\\tshirt-store-backend\\tshirt-store-backend.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\SMPC\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\SMPC\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",
