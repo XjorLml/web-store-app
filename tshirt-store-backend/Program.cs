@@ -3,35 +3,44 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add EF Core
+// ✅ Add EF Core
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// Add Controllers and Views
+// ✅ Add MVC
 builder.Services.AddControllersWithViews();
 
-// Add CORS
+// ✅ Register CORS BEFORE Build()
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowFrontend",
-        policy => policy.WithOrigins("http://localhost:5173") // React Vite URL
-                        .AllowAnyHeader()
-                        .AllowAnyMethod());
+    options.AddPolicy("AllowFrontend", policy =>
+        policy.WithOrigins("http://localhost:5173")
+              .AllowAnyHeader()
+              .AllowAnyMethod());
+
 });
 
 var app = builder.Build();
 
-// Apply Migrations Automatically
+
+var endpointDataSource = app.Services.GetRequiredService<EndpointDataSource>();
+foreach (var endpoint in endpointDataSource.Endpoints)
+{
+    Console.WriteLine($"➡️ {endpoint.DisplayName}");
+}
+
+// ✅ Apply migrations
+
 using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     dbContext.Database.Migrate();
 
-    // Initialize with seed data (optional)
-    DbInitializer.Initialize(dbContext);
+    DbInitializer.Initialize(dbContext); // ✅ Can be done inside same scope
 }
 
-// Middleware pipeline
+// ✅ Middleware pipeline
+
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
@@ -40,17 +49,18 @@ if (!app.Environment.IsDevelopment())
 app.UseStaticFiles();
 app.UseRouting();
 
-// 🔁 CORS must come BEFORE endpoints
+
+// ✅ Use CORS here
 app.UseCors("AllowFrontend");
 
-// Uncomment only if you're using authentication
-// app.UseAuthentication();
-// app.UseAuthorization();
+app.UseAuthorization();
 
-// API + MVC Routes
-app.MapControllers(); // ← Enables `[ApiController]` endpoints
+// ✅ Route mapping
+
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.MapControllers();
 
 app.Run();

@@ -53,7 +53,7 @@ export default function ProductDetail() {
         <img
           src={product.imageUrl}
           alt={product.name}
-          className="w-full h-80 object-cover rounded-lg shadow-md"
+          className="w-full h-46 object-cover rounded-lg shadow-md"
         />
       </div>
 

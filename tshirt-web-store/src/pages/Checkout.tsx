@@ -1,6 +1,14 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import {
+  Container,
+  TextField,
+  Button,
+  Typography,
+  Box,
+  Paper,
+} from '@mui/material';
 
 export default function Checkout() {
   const [name, setName] = useState('');
@@ -14,13 +22,13 @@ export default function Checkout() {
       items: [
         {
           productId: 1,
-          quantity: 1
-        }
-      ]
+          quantity: 1,
+        },
+      ],
     };
 
     try {
-      await axios.post('http://localhost:5000/api/order', order);
+      await axios.post('http://localhost:5286/api/order', order);
       navigate('/confirmation');
     } catch (error) {
       alert('Order failed');
@@ -28,26 +36,41 @@ export default function Checkout() {
   };
 
   return (
-    <div className="max-w-xl mx-auto p-6">
-      <h2 className="text-2xl font-bold mb-4">Checkout</h2>
-      <input
-        value={name}
-        onChange={e => setName(e.target.value)}
-        placeholder="Full Name"
-        className="w-full border p-2 mb-4 rounded"
-      />
-      <input
-        value={address}
-        onChange={e => setAddress(e.target.value)}
-        placeholder="Shipping Address"
-        className="w-full border p-2 mb-4 rounded"
-      />
-      <button
-        onClick={handleSubmit}
-        className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-      >
-        Place Order
-      </button>
-    </div>
+    <Container maxWidth="sm" sx={{ py: 6 }}>
+      <Paper elevation={3} sx={{ p: 4, borderRadius: 3 }}>
+        <Typography variant="h5" fontWeight="bold" gutterBottom>
+          Checkout
+        </Typography>
+
+        <Box display="flex" flexDirection="column" gap={3}>
+          <TextField
+            label="Full Name"
+            variant="outlined"
+            fullWidth
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+
+          <TextField
+            label="Shipping Address"
+            variant="outlined"
+            fullWidth
+            multiline
+            rows={3}
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
+          />
+
+          <Button
+            variant="contained"
+            color="primary"
+            size="large"
+            onClick={handleSubmit}
+          >
+            Place Order
+          </Button>
+        </Box>
+      </Paper>
+    </Container>
   );
 }

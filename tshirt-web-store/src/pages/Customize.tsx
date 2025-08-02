@@ -1,5 +1,17 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import {
+  Box,
+  Container,
+  Typography,
+  TextField,
+  MenuItem,
+  InputLabel,
+  Select,
+  FormControl,
+  Button,
+  Paper,
+} from '@mui/material';
 
 export default function Customize() {
   const { id } = useParams();
@@ -17,95 +29,119 @@ export default function Customize() {
     navigate('/checkout');
   };
 
-  const getTextPositionClass = () => {
+  const getTextPositionStyles = () => {
     switch (textPosition) {
       case 'top':
-        return 'top-4';
+        return { top: '16px' };
       case 'bottom':
-        return 'bottom-4';
+        return { bottom: '16px' };
       default:
-        return 'top-1/2 transform -translate-y-1/2';
+        return { top: '50%', transform: 'translateY(-50%)' };
     }
   };
 
   return (
-    <div className="max-w-5xl mx-auto px-4 py-10">
-      <h2 className="text-4xl font-bold text-center text-gray-800 mb-10">
+    <Container maxWidth="lg" sx={{ py: 8 }}>
+      <Typography variant="h4" fontWeight="bold" textAlign="center" color="text.primary" mb={6}>
         Customize Your T-Shirt
-      </h2>
+      </Typography>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-start">
-        {/* Left: Preview */}
-        <div className="relative bg-gray-100 rounded-xl shadow-lg p-6 flex items-center justify-center h-96">
-          <img
+      <Box
+        display="grid"
+        gridTemplateColumns={{ xs: '1fr', md: '1fr 1fr' }}
+        gap={6}
+        alignItems="flex-start"
+      >
+        {/* Preview */}
+        <Paper
+          elevation={3}
+          sx={{
+            height: 400,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            position: 'relative',
+            p: 3,
+            bgcolor: '#f3f4f6',
+            borderRadius: 4,
+          }}
+        >
+          <Box
+            component="img"
             src="https://via.placeholder.com/300x300?text=T-Shirt+Preview"
-            alt="T-Shirt preview"
-            className="h-full object-contain drop-shadow"
+            alt="T-Shirt Preview"
+            sx={{ maxHeight: '100%', objectFit: 'contain' }}
           />
           {customText && (
-            <div
-              className={`absolute w-full px-2 text-center text-xl font-semibold ${getTextPositionClass()}`}
-              style={{ color: textColor }}
+            <Typography
+              variant="h6"
+              fontWeight="bold"
+              sx={{
+                position: 'absolute',
+                width: '100%',
+                textAlign: 'center',
+                color: textColor,
+                ...getTextPositionStyles(),
+              }}
             >
               {customText}
-            </div>
+            </Typography>
           )}
-        </div>
+        </Paper>
 
-        {/* Right: Customization Form */}
-        <div className="space-y-6">
-          <div>
-            <label htmlFor="customText" className="block mb-1 font-medium text-gray-700">
-              Custom Text
-            </label>
-            <input
-              id="customText"
-              value={customText}
-              onChange={(e) => setCustomText(e.target.value)}
-              className="w-full border border-gray-300 px-4 py-2 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
-              placeholder="e.g., Your Name or Quote"
-            />
-          </div>
+        {/* Form */}
+        <Box display="flex" flexDirection="column" gap={3}>
+          <TextField
+            label="Custom Text"
+            variant="outlined"
+            fullWidth
+            value={customText}
+            onChange={(e) => setCustomText(e.target.value)}
+            placeholder="e.g., Your Name or Quote"
+          />
 
-          <div>
-            <label htmlFor="textColor" className="block mb-1 font-medium text-gray-700">
-              Text Color
-            </label>
+          <Box>
+            <InputLabel shrink htmlFor="textColor">Text Color</InputLabel>
             <input
               id="textColor"
               type="color"
               value={textColor}
               onChange={(e) => setTextColor(e.target.value)}
-              className="w-16 h-10 p-1 border rounded-md cursor-pointer"
+              style={{
+                width: '60px',
+                height: '40px',
+                padding: '4px',
+                border: '1px solid #ccc',
+                borderRadius: '6px',
+                cursor: 'pointer',
+              }}
             />
-          </div>
+          </Box>
 
-          <div>
-            <label htmlFor="textPosition" className="block mb-1 font-medium text-gray-700">
-              Text Position
-            </label>
-            <select
-              id="textPosition"
+          <FormControl fullWidth>
+            <InputLabel id="text-position-label">Text Position</InputLabel>
+            <Select
+              labelId="text-position-label"
               value={textPosition}
-              onChange={(e) =>
-                setTextPosition(e.target.value as 'top' | 'center' | 'bottom')
-              }
-              className="w-full border border-gray-300 px-4 py-2 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+              label="Text Position"
+              onChange={(e) => setTextPosition(e.target.value as 'top' | 'center' | 'bottom')}
             >
-              <option value="top">Top</option>
-              <option value="center">Center</option>
-              <option value="bottom">Bottom</option>
-            </select>
-          </div>
+              <MenuItem value="top">Top</MenuItem>
+              <MenuItem value="center">Center</MenuItem>
+              <MenuItem value="bottom">Bottom</MenuItem>
+            </Select>
+          </FormControl>
 
-          <button
+          <Button
+            variant="contained"
+            color="success"
+            size="large"
             onClick={handleAddToCart}
-            className="w-full bg-green-600 text-white py-3 rounded-lg text-lg font-semibold hover:bg-green-700 transition"
           >
             Proceed to Checkout
-          </button>
-        </div>
-      </div>
-    </div>
+          </Button>
+        </Box>
+      </Box>
+    </Container>
   );
 }

@@ -1,8 +1,20 @@
+import { Box, Typography, Container } from '@mui/material';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+
 export default function Confirmation() {
   return (
-    <div className="text-center p-10">
-      <h1 className="text-3xl font-bold text-green-600">Thank you for your order!</h1>
-      <p className="mt-2 text-gray-700">You’ll receive an email with shipping details shortly.</p>
-    </div>
+    <Container maxWidth="sm" sx={{ py: 10, textAlign: 'center' }}>
+      <Box display="flex" flexDirection="column" alignItems="center" gap={2}>
+        <CheckCircleOutlineIcon sx={{ fontSize: 60, color: 'success.main' }} />
+
+        <Typography variant="h4" fontWeight="bold" color="success.main">
+          Thank you for your order!
+        </Typography>
+
+        <Typography variant="body1" color="text.secondary">
+          You’ll receive an email with shipping details shortly.
+        </Typography>
+      </Box>
+    </Container>
   );
 }

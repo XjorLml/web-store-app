@@ -1,4 +1,13 @@
-import { Link } from 'react-router-dom';
+import {
+  Card,
+  CardActionArea,
+  CardContent,
+  Box,
+  Typography,
+  CardActions,
+  Button,
+} from "@mui/material";
+import { Link } from "react-router-dom";
 
 interface Product {
   id: string;
@@ -13,24 +22,67 @@ interface ProductCardProps {
 
 export default function ProductCard({ product }: ProductCardProps) {
   return (
-    <div className="border rounded-lg overflow-hidden shadow hover:shadow-md transition duration-300 bg-white">
-      <img
-        src={product.imageUrl}
-        alt={product.name || 'T-shirt'}
-        className="w-full h-48 object-cover"
-      />
+    <Card
+      sx={{
+        maxWidth: 345,
+        borderRadius: 3,
+        boxShadow: 3,
+        transition: "transform 0.3s, box-shadow 0.3s",
+        "&:hover": {
+          transform: "translateY(-4px)",
+          boxShadow: 6,
+        },
+      }}
+    >
+      <CardActionArea component={Link} to={`/products/${product.id}`}>
+        <Box
+          sx={{
+            height: 240, // Set a fixed height
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            bgcolor: "#fafafa",
+            p: 1,
+          }}
+        >
+          <Box
+            component="img"
+            src={product.imageUrl}
+            alt={product.name || "T-shirt"}
+            sx={{
+              maxHeight: "100%",
+              maxWidth: "100%",
+              objectFit: "contain",
+            }}
+          />
+        </Box>
 
-      <div className="p-4">
-        <h2 className="text-lg font-bold text-gray-800">{product.name}</h2>
-        <p className="text-green-700 font-semibold mt-1"> ₱{product.price.toFixed(2)}</p>
+        <CardContent>
+          <Typography
+            variant="subtitle1"
+            fontWeight="bold"
+            color="text.primary"
+            noWrap
+          >
+            {product.name}
+          </Typography>
+          <Typography variant="subtitle2" color="success.main" fontWeight="600">
+            ₱{product.price.toFixed(2)}
+          </Typography>
+        </CardContent>
+      </CardActionArea>
 
-        <Link
+      <CardActions sx={{ justifyContent: "flex-end", px: 2, pb: 2 }}>
+        <Button
+          component={Link}
           to={`/products/${product.id}`}
-          className="inline-block mt-3 text-blue-600 font-medium hover:underline"
+          size="small"
+          variant="outlined"
+          color="primary"
         >
           View Details →
-        </Link>
-      </div>
-    </div>
+        </Button>
+      </CardActions>
+    </Card>
   );
 }
