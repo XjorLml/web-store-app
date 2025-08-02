@@ -9,22 +9,26 @@ import {
   Paper,
   Link,
 } from '@mui/material';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
 import { useNavigate, Link as RouterLink } from 'react-router-dom';
 
-export default function Login() {
+export default function Signup() {
+  const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSignUp = (e: React.FormEvent) => {
     e.preventDefault();
-    if (email && password) {
-      console.log('Logging in:', { email, password });
-      navigate('/products');
-    } else {
-      alert('Please enter email and password');
+
+    if (password !== confirmPassword) {
+      alert('Passwords do not match');
+      return;
     }
+
+    console.log('Registering user:', { fullName, email, password });
+    navigate('/login');
   };
 
   return (
@@ -32,39 +36,52 @@ export default function Login() {
       <Paper elevation={4} sx={{ p: 4, mt: 8, borderRadius: 3 }}>
         <Box display="flex" flexDirection="column" alignItems="center" gap={2}>
           <Avatar sx={{ bgcolor: 'primary.main' }}>
-            <LockOutlinedIcon />
+            <PersonAddAltIcon />
           </Avatar>
 
           <Typography variant="h5" fontWeight="bold">
-            Sign In
+            Sign Up
           </Typography>
 
-          <Box component="form" onSubmit={handleSubmit} width="100%" mt={2}>
+          <Box component="form" onSubmit={handleSignUp} width="100%" mt={2}>
             <TextField
+              label="Full Name"
               fullWidth
-              label="Email"
-              type="email"
               margin="normal"
               required
+              value={fullName}
+              onChange={(e) => setFullName(e.target.value)}
+            />
+
+            <TextField
+              label="Email"
+              fullWidth
+              margin="normal"
+              required
+              type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
 
             <TextField
-              fullWidth
               label="Password"
-              type="password"
+              fullWidth
               margin="normal"
               required
+              type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
 
-            <Box textAlign="right" sx={{ mt: 1 }}>
-              <Link href="#" underline="hover" variant="body2">
-                Forgot password?
-              </Link>
-            </Box>
+            <TextField
+              label="Confirm Password"
+              fullWidth
+              margin="normal"
+              required
+              type="password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+            />
 
             <Button
               type="submit"
@@ -73,14 +90,14 @@ export default function Login() {
               fullWidth
               sx={{ mt: 2 }}
             >
-              Sign In
+              Sign Up
             </Button>
           </Box>
 
           <Typography variant="body2" sx={{ mt: 2 }}>
-            Don’t have an account?{' '}
-            <Link component={RouterLink} to="/signup" underline="hover" color="primary">
-              Sign Up
+            Already have an account?{' '}
+            <Link component={RouterLink} to="/login" underline="hover" color="primary">
+              Sign In
             </Link>
           </Typography>
         </Box>

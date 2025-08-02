@@ -1,35 +1,60 @@
+import { Box, Typography, Button, Paper } from '@mui/material';
+import { Link as RouterLink } from 'react-router-dom';
+
 export default function Home() {
   return (
-    <div className="min-h-screen bg-gradient-to-r from-blue-100 to-pink-100 flex items-center justify-center">
-      <div className="bg-white shadow-2xl rounded-3xl p-10 max-w-2xl text-center animate-fade-in">
-        <h1 className="text-5xl font-extrabold text-blue-700">Welcome to TeeStore 👕</h1>
-        <p className="mt-4 text-gray-700 text-lg">
+    <Box
+      sx={{
+        minHeight: '100vh',
+        background: 'linear-gradient(to right, #ebf8ff, #fce7f3)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
+    >
+      <Paper
+        elevation={10}
+        sx={{
+          borderRadius: 6,
+          p: 6,
+          maxWidth: 700,
+          textAlign: 'center',
+          animation: 'fadeIn 0.5s ease-in-out',
+        }}
+      >
+        <Typography variant="h3" component="h1" fontWeight="extrabold" color="primary" gutterBottom>
+          Welcome to TeeStore 👕
+        </Typography>
+
+        <Typography variant="h6" color="text.secondary" sx={{ mt: 2 }}>
           Customize your T-shirts and ship nationwide with ease.
-        </p>
+        </Typography>
 
-        <div className="mt-6">
-          <img
-            src="https://via.placeholder.com/300x200?text=T-Shirt+Preview"
-            alt="T-shirt preview"
-            className="mx-auto rounded-xl shadow-md hover:scale-105 transition-transform duration-300"
-          />
-        </div>
+        
 
-        <div className="mt-8 space-x-4">
-          <a
-            href="/products"
-            className="bg-blue-600 text-white px-6 py-3 rounded-full hover:bg-blue-700 transition"
+        <Box sx={{ mt: 5, display: 'flex', justifyContent: 'center', gap: 2, flexWrap: 'wrap' }}>
+          <Button
+            variant="contained"
+            color="primary"
+            size="large"
+            component={RouterLink}
+            to="/products"
           >
             Start Shopping
-          </a>
-          <a
-            href="/customize"
-            className="bg-gray-200 text-blue-600 px-6 py-3 rounded-full hover:bg-gray-300 transition"
-          >
+          </Button>
+
+          <Button
+            variant="outlined"
+            color="primary"
+            size="large"
+            component={RouterLink}
+            to="/customize"
+          > 
             Customize Now
-          </a>
-        </div>
-      </div>
-    </div>
+          </Button>
+        </Box>
+      </Paper>
+    </Box>
   );
 }
+  
