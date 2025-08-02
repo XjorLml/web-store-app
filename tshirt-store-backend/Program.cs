@@ -17,9 +17,11 @@ builder.Services.AddCors(options =>
         policy.WithOrigins("http://localhost:5173")
               .AllowAnyHeader()
               .AllowAnyMethod());
+
 });
 
 var app = builder.Build();
+
 
 var endpointDataSource = app.Services.GetRequiredService<EndpointDataSource>();
 foreach (var endpoint in endpointDataSource.Endpoints)
@@ -28,14 +30,17 @@ foreach (var endpoint in endpointDataSource.Endpoints)
 }
 
 // ✅ Apply migrations
+
 using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     dbContext.Database.Migrate();
+
     DbInitializer.Initialize(dbContext); // ✅ Can be done inside same scope
 }
 
 // ✅ Middleware pipeline
+
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
@@ -44,12 +49,14 @@ if (!app.Environment.IsDevelopment())
 app.UseStaticFiles();
 app.UseRouting();
 
+
 // ✅ Use CORS here
 app.UseCors("AllowFrontend");
 
 app.UseAuthorization();
 
 // ✅ Route mapping
+
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
