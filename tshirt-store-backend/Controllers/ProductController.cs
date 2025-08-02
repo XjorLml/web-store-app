@@ -16,7 +16,13 @@ public class ProductController : ControllerBase
     [HttpGet]
     public IActionResult GetAll()
     {
-        return Ok(_context.Products.ToList());
+        var products = _context.Products.ToList();
+        return Ok(new
+        {
+            message = "Fetched all products.",
+            count = products.Count,
+            data = products
+        });
     }
 
     [HttpPost]
@@ -24,6 +30,11 @@ public class ProductController : ControllerBase
     {
         _context.Products.Add(product);
         _context.SaveChanges();
-        return CreatedAtAction(nameof(GetAll), new { id = product.Id }, product);
+
+        return CreatedAtAction(nameof(GetAll), new { id = product.Id }, new
+        {
+            message = "Product created successfully.",
+            data = product
+        });
     }
 }
