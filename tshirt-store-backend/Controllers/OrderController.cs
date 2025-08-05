@@ -25,12 +25,18 @@ public class OrderController : ControllerBase
     [HttpGet("{id}")]
     public IActionResult GetOrder(int id)
     {
-        var order = _context.Orders
-            .Include(o => o.Items)
-            .ThenInclude(i => i.Product)
-            .FirstOrDefault(o => o.Id == id);
-
-        if (order == null) return NotFound();
-        return Ok(order);
+        // var order = _context.Orders
+        //     .Include(o => o.Items)
+        //     .ThenInclude(i => i.Product)
+        //     .FirstOrDefault(o => o.Id == id);
+        var order = _context.Orders.ToList();
+        if (order == null)
+            return NotFound(new { message = "Order not found." });
+        return Ok(new
+        {
+            message = "Fetched order.",
+            data = order
+        });
     }
+        
 }

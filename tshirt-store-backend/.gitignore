@@ -1,0 +1,60 @@
+## Build results
+bin/
+obj/
+out/
+
+## User-specific files
+.vscode/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+## Rider IDE files
+.idea/
+
+## Visual Studio Code
+.history/
+.vscode/
+
+## ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+## Dependency directories
+node_modules/
+packages/
+
+## Logs and databases
+*.log
+*.db
+*.sqlite
+
+## Secrets and configuration
+appsettings.Development.json
+appsettings.Local.json
+appsettings.*.json
+!appsettings.json   # (Only include the default config if needed)
+
+## Publish output
+wwwroot/dist/
+wwwroot/lib/
+publish/
+*.publish.xml
+
+## Dotnet CLI
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+## Azure Pipeline artifacts
+*.azurepubxml
+*.pubxml
+*.pfx
+
+## Temporary files
+*.tmp
+*.temp
+
+## Npm/Yarn files (if using front-end with ASP)
+package-lock.json
+yarn.lock

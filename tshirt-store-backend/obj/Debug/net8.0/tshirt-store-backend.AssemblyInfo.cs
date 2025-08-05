@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("tshirt-store-backend")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+84df2e4ba928211a92f1371f5704229f63b12ed9")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+40ca5c0d0a3d5b8823c329c8847bda6392f21799")]
 [assembly: System.Reflection.AssemblyProductAttribute("tshirt-store-backend")]
 [assembly: System.Reflection.AssemblyTitleAttribute("tshirt-store-backend")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
