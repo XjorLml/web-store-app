@@ -23,7 +23,7 @@ export default function Home() {
         }}
       >
         <Typography variant="h3" component="h1" fontWeight="extrabold" color="primary" gutterBottom>
-          Welcome to TeeStore 👕
+          Welcome to TShirt Web Store
         </Typography>
 
         <Typography variant="h6" color="text.secondary" sx={{ mt: 2 }}>

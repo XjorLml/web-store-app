@@ -10,7 +10,7 @@ import {
 import { Link } from "react-router-dom";
 
 interface Product {
-  id: string;
+  id: number;
   name: string;
   price: number;
   imageUrl: string;
@@ -37,18 +37,18 @@ export default function ProductCard({ product }: ProductCardProps) {
       <CardActionArea component={Link} to={`/products/${product.id}`}>
         <Box
           sx={{
-            height: 240, // Set a fixed height
+            height: 240,
+            bgcolor: "#fafafa",
+            p: 2,
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            bgcolor: "#fafafa",
-            p: 1,
           }}
         >
           <Box
             component="img"
             src={product.imageUrl}
-            alt={product.name || "T-shirt"}
+            alt={product.name || "Product"}
             sx={{
               maxHeight: "100%",
               maxWidth: "100%",
@@ -58,16 +58,11 @@ export default function ProductCard({ product }: ProductCardProps) {
         </Box>
 
         <CardContent>
-          <Typography
-            variant="subtitle1"
-            fontWeight="bold"
-            color="text.primary"
-            noWrap
-          >
+          <Typography variant="subtitle1" fontWeight="bold" noWrap>
             {product.name}
           </Typography>
           <Typography variant="subtitle2" color="success.main" fontWeight="600">
-            ₱{product.price.toFixed(2)}
+            ₱{typeof product.price === "number" ? product.price.toFixed(2) : "0.00"}
           </Typography>
         </CardContent>
       </CardActionArea>
@@ -78,7 +73,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           to={`/products/${product.id}`}
           size="small"
           variant="outlined"
-          color="primary"
+          color="warning"
         >
           View Details →
         </Button>

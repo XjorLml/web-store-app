@@ -12,10 +12,15 @@ export default function Navbar() {
           sx={{
             textDecoration: 'none',
             color: 'inherit',
-            fontWeight: 'bold'
+            fontWeight: 'bold',
+            transition: 'color 0.2s ease',
+            '&:hover': {
+              color: '#000', // yellow accent or any contrasting color
+            },
           }}
+
         >
-          TeeStore
+          Tshirt Web Store
         </Typography>
 
         <Box sx={{ display: 'flex', gap: 2 }}>
@@ -23,20 +28,40 @@ export default function Navbar() {
             component={RouterLink}
             to="/login"
             color="inherit"
+            sx={{
+              '&:hover': {
+                backgroundColor: 'rgba(255, 255, 255, 0.1)', // Light hover background
+                color: '#fff', // Keep text white
+              },
+            }}
           >
-            Login
+            Sign In
           </Button>
+
           <Button
             component={RouterLink}
             to="/products"
             color="inherit"
+            sx={{
+              '&:hover': {
+                backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                color: '#fff',
+              },
+            }}
           >
             Shop
           </Button>
+
           <Button
             component={RouterLink}
             to="/checkout"
             color="inherit"
+            sx={{
+              '&:hover': {
+                backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                color: '#fff',
+              },
+            }}
           >
             Checkout
           </Button>
