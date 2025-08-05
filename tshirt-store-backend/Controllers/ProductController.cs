@@ -25,6 +25,21 @@ public class ProductController : ControllerBase
         });
     }
 
+    [HttpGet("{id}")]
+    public IActionResult GetById(int id)
+    {
+        var product = _context.Products.FirstOrDefault(p => p.Id == id);
+        if (product == null)
+            return NotFound(new { message = "Product not found." });
+
+        return Ok(new
+        {
+            message = "Fetched product.",
+            data = product
+        });
+    }
+
+
     [HttpPost]
     public IActionResult Create(Product product)
     {
